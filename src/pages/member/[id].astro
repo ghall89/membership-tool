@@ -1,0 +1,14 @@
+---
+import Layout from '@layouts/Layout.astro';
+import getMemberByNumber from '@utils/db/getMemberByNumber';
+
+const { id } = Astro.params;
+
+let membership;
+
+if (id) membership = await getMemberByNumber(id);
+---
+
+<Layout title={membership?.name ?? 'Error'}>
+  {membership ? <h2>{membership.name}</h2> : <h2>There was an error...</h2>}
+</Layout>

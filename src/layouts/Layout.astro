@@ -1,0 +1,44 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+
+type NavItem = {
+  label: string;
+  href: string;
+};
+
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+const navItems: NavItem[] = [
+  {
+    label: 'Member List',
+    href: '/',
+  },
+  {
+    label: 'Add Member',
+    href: '/add-member',
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <ViewTransitions />
+  </head>
+  <body class="container m-auto pt-4">
+    <nav>
+      {navItems.map(({ label, href }) => <a href={href}>{label}</a>)}
+    </nav>
+    <div class="mx-auto w-fit p-8">
+      <slot />
+    </div>
+  </body>
+</html>

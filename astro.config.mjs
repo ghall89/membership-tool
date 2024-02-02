@@ -3,13 +3,11 @@ import tailwind from '@astrojs/tailwind';
 import htmx from 'astro-htmx';
 import alpinejs from '@astrojs/alpinejs';
 
-import netlify from '@astrojs/netlify';
+import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind()],
+  integrations: [tailwind(), htmx(), alpinejs()],
   output: 'server',
-  adapter: netlify(),
+  adapter: vercel()
 });
-
-// , htmx(), alpinejs()

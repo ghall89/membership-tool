@@ -1,60 +1,52 @@
 ---
-type Member = {
-  id: string;
-  membership_number: string;
-  name: string;
-  membership_size: number;
-  start_dt: Date;
-  expiration_dt: Date;
-  created_at: Date;
-  updated_at: Date;
-};
+import Layout from '@layouts/Layout.astro';
+import getAllMembers from '@utils/db/getAllMembers';
+import type { Member } from '../types';
 
-import { getKnex } from '../knex';
-
-const knex = getKnex();
-const memberships: [Member] = await knex('member');
+let memberships: Member[] = [];
+memberships = await getAllMembers();
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body class="container m-auto pt-4">
-    <div class="mx-auto w-fit p-8">
-      <h1 class="mb-4 text-3xl">Members</h1>
-      <table class="table-auto border">
-        <thead class="border-b bg-slate-200">
-          <tr>
-            <th class="p-4">Member #</th>
-            <th class="p-4">Name</th>
-            <th class="p-4">Membership Size</th>
-            <th class="p-4">Start Date</th>
-            <th class="p-4">Expiration Date</th>
+<Layout title="Members">
+  <table class="table-auto border">
+    <thead class="border-b bg-slate-200">
+      <tr>
+        <th class="p-4">Member #</th>
+        <th class="p-4">Name</th>
+        <th class="p-4">Membership Size</th>
+        <th class="p-4">Start Date</th>
+        <th class="p-4">Expiration Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        memberships.map((member) => (
+          <tr
+            class="clickable-row odd:bg-white even:bg-slate-100 hover:bg-sky-200"
+            id={member.membership_number}
+          >
+            <td class="p-4">{member.membership_number}</td>
+            <td class="p-4">{member.name}</td>
+            <td class="p-4">{member.membership_size}</td>
+            <td class="p-4">
+              {new Date(member.start_dt).toLocaleDateString()}
+            </td>
+            <td class="p-4">
+              {new Date(member.expiration_dt).toLocaleDateString()}
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {
-            memberships.map((member) => (
-              <tr class="odd:bg-white even:bg-slate-100 hover:bg-sky-200">
-                <td class="p-4">{member.membership_number}</td>
-                <td class="p-4">{member.name}</td>
-                <td class="p-4">{member.membership_size}</td>
-                <td class="p-4">
-                  {new Date(member.start_dt).toLocaleDateString()}
-                </td>
-                <td class="p-4">
-                  {new Date(member.expiration_dt).toLocaleDateString()}
-                </td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
-    </div>
-  </body>
-</html>
+        ))
+      }
+    </tbody>
+  </table>
+</Layout>
+
+<script>
+  const rows = document.querySelectorAll('tr.clickable-row');
+
+  rows.forEach((row) => {
+    row.addEventListener('click', ({ target: { parentElement } }) =>
+      document.location.replace(`/member/${parentElement.id}`),
+    );
+  });
+</script>
