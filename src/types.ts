@@ -9,4 +9,12 @@ type Member = {
   updated_at: Date;
 };
 
-export type { Member };
+type CreateParams = {
+  name: FormDataEntryValue | null;
+  email: FormDataEntryValue | null;
+  memberSize: FormDataEntryValue | null;
+  startDate: Date;
+  lengthInYrs: FormDataEntryValue | null;
+};
+
+export type { Member, CreateParams };

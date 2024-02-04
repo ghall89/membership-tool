@@ -1,0 +1,17 @@
+---
+interface Props {
+  label: string;
+  name: string;
+  id: string;
+  options: (string | number)[];
+}
+
+const { label, name, id, options } = Astro.props;
+---
+
+<div class="flex flex-row justify-between">
+  <label for={name}>{label}</label>
+  <select name={name} id={id}>
+    {options.map((option) => <option value={option}>{option}</option>)}
+  </select>
+</div>

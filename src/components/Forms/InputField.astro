@@ -1,0 +1,22 @@
+---
+interface Props {
+  label: string;
+  name: string;
+  id: string;
+  type: 'text' | 'number' | 'email' | 'password';
+  isRequired?: boolean;
+}
+
+const { label, isRequired = false, type, name, id } = Astro.props;
+---
+
+<div class="flex flex-row justify-between">
+  <label for={name}>{label}</label>
+  <input
+    required={isRequired}
+    class="rounded-md border"
+    type={type}
+    name={name}
+    id={id}
+  />
+</div>

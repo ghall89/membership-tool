@@ -45,8 +45,8 @@ memberships = await getAllMembers();
   const rows = document.querySelectorAll('tr.clickable-row');
 
   rows.forEach((row) => {
-    row.addEventListener('click', ({ target: { parentElement } }) =>
-      document.location.replace(`/member/${parentElement.id}`),
+    row.addEventListener('click', ({ target }) =>
+      document.location.replace(`/member/${target.parentElement.id}`),
     );
   });
 </script>

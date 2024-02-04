@@ -12,6 +12,8 @@ export interface Props {
 
 const { title } = Astro.props;
 
+const currentPath = Astro.url.pathname;
+
 const navItems: NavItem[] = [
   {
     label: 'Member List',
@@ -33,12 +35,23 @@ const navItems: NavItem[] = [
     <title>{title}</title>
     <ViewTransitions />
   </head>
-  <body class="container m-auto pt-4">
-    <nav>
-      {navItems.map(({ label, href }) => <a href={href}>{label}</a>)}
-    </nav>
-    <div class="mx-auto w-fit p-8">
-      <slot />
+  <body>
+    <div class="container mx-auto w-fit">
+      <nav class="mx-auto flex w-fit flex-row gap-4 pt-4">
+        {
+          navItems.map(({ label, href }) => (
+            <a
+              class={`border-b-2 uppercase hover:border-sky-300 ${href === currentPath ? 'border-sky-400' : 'border-slate-400'}`}
+              href={href}
+            >
+              {label}
+            </a>
+          ))
+        }
+      </nav>
+      <div class="p-8">
+        <slot />
+      </div>
     </div>
   </body>
 </html>
