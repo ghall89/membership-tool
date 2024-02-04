@@ -1,9 +1,8 @@
 import { getKnex } from '@knex/db';
 import z from 'zod';
 import { addYears } from 'date-fns';
-import type { CreateParams } from '../../types';
 
-const createSchema = z.object({
+const schema = z.object({
   name: z.string(),
   email: z.string(),
   phone: z.string().optional(),
@@ -19,10 +18,10 @@ const createSchema = z.object({
   startDate: z.coerce.date(),
 });
 
-export default async (params: CreateParams) => {
+export default async (params: {}) => {
   const knex = getKnex();
   try {
-    const validatedParams = createSchema.parse(params);
+    const validatedParams = schema.parse(params);
 
     await knex.transaction(async (trx) => {
       // get all members in db (for generating member_id)
@@ -53,12 +52,12 @@ export default async (params: CreateParams) => {
         email: validatedParams.email,
         phone: validatedParams?.phone,
         address_1: validatedParams?.address1,
-        address_2: validatedParams.address2,
-        city: validatedParams.city,
-        state: validatedParams.state,
-        zip: validatedParams.zip,
-        send_renewal_notification: validatedParams.renewalNotifications,
-        send_marketing_emails: validatedParams.marketingEmails,
+        address_2: validatedParams?.address2,
+        city: validatedParams?.city,
+        state: validatedParams?.state,
+        zip: validatedParams?.zip,
+        send_renewal_notification: validatedParams?.renewalNotifications,
+        send_marketing_emails: validatedParams?.marketingEmails,
       });
     });
   } catch (error) {
