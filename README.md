@@ -1,47 +1,35 @@
-# Astro Starter Kit: Minimal
+# membership-tool
 
-```sh
-npm create astro@latest -- --template minimal
-```
+## About
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+A simple CRM tool for managing family/group memberships for a museum or similar organization.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+This is simply a learning project for building a rich web application with a database back-end without using React, NextJS, or a similar framework. It's not intended for use in a production environment.
 
-## 🚀 Project Structure
+## Installation
 
-Inside of your Astro project, you'll see the following folders and files:
+### Prerequisites
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+#### Bun
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+A fast, lightweight JavaScript bundler, package manager, and alternative to Node which runs on JavaScriptCore.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+You can install Bun via Homebrew with `brew add bun`, or via [their website](https://bun.sh)
 
-Any static assets, like images, can be placed in the `public/` directory.
+#### PostgreSQL
 
-## 🧞 Commands
+An open source relational database solution ideal for web apps.
 
-All commands are run from the root of the project, from a terminal:
+The easiest way to get a PostgreSQL database up and running locally on a Mac is with [this app](https://postgresapp.com). You can also download it [here](https://www.postgresql.org/download/).
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+You can also choose to host your database online.
 
-## 👀 Want to learn more?
+### Installation
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+1. After cloning the repo, add a file called `.env` in the project root, and add `POSTGRES_URL="postgresql://your.postgres.url"`, with the URL to your database instead of the placeholder, to the file.
+
+2. From the root of this project, run the command `bun install` in your terminal to install the project dependencies.
+
+3. Start up your database if you're running it locally, and run the command `bun run migrate` in your terminal. If you'd like to use sample data as well, you can also run `bun run seed` to add randomized fake data to your db.
+
+4. Run the command `bun run dev` and navigate to `localhost:4321` in your browser of choice.
