@@ -1,7 +1,6 @@
 ---
 import Layout from '@layouts/Layout.astro';
 import createMember from '@utils/db/createMember';
-import type { CreateParams } from '../types';
 
 import InputField from '@components/Forms/InputField.astro';
 import SelectField from '@components/Forms/SelectField.astro';
@@ -10,12 +9,18 @@ if (Astro.request.method === 'POST') {
   try {
     const data = await Astro.request.formData();
 
-    const params: CreateParams = {
+    const params = {
       name: data.get('name'),
       email: data.get('email'),
+      phone: data.get('phone'),
+      address1: data.get('address1'),
+      address2: data.get('address2'),
+      city: data.get('city'),
+      state: data.get('state'),
+      zip: data.get('zip'),
       memberSize: data.get('memberSize'),
-      startDate: new Date(),
       lengthInYrs: data.get('lengthInYrs'),
+      startDate: new Date(),
     };
 
     await createMember(params);

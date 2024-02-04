@@ -6,9 +6,13 @@ export default async (membership_number: string) => {
   let membership: Member;
 
   try {
-    membership = await knex('member').where({
-      membership_number,
-    });
+    membership = await knex('member')
+      .where({
+        membership_number,
+      })
+      .join('contact_info', 'member.id', 'contact_info.member_id');
+
+    console.log(membership);
 
     return membership;
   } catch (error) {
