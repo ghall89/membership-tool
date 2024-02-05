@@ -1,10 +1,16 @@
 ---
 import Layout from '@layouts/Layout.astro';
 import getAllMembers from '@utils/db/getAllMembers';
-import type { Member } from '../types';
+import type { Response } from '@utils/db/getAllMembers';
 
-let memberships: Member[] = [];
-memberships = await getAllMembers();
+const page = Astro.url.searchParams.get('page') || '1';
+console.log(page);
+
+let response: Response;
+
+response = await getAllMembers(Number(page));
+
+const { data, count, pages } = response;
 ---
 
 <Layout title="Members">
@@ -20,7 +26,7 @@ memberships = await getAllMembers();
     </thead>
     <tbody>
       {
-        memberships.map((member) => (
+        data.map((member) => (
           <tr
             class="clickable-row odd:bg-white even:bg-slate-100 hover:bg-sky-200"
             id={member.membership_number}
@@ -39,6 +45,18 @@ memberships = await getAllMembers();
       }
     </tbody>
   </table>
+  <div class="mx-auto my-9 w-fit">
+    {
+      pages.map((p) => (
+        <a
+          class={`border-r bg-slate-50 px-8 py-4 first:rounded-l-md last:rounded-r-md last:border-r-0 hover:bg-sky-200  ${Number(page) === p ? 'bg-sky-300' : 'bg-white'}`}
+          href={`?page=${p}`}
+        >
+          {p}
+        </a>
+      ))
+    }
+  </div>
 </Layout>
 
 <script>
