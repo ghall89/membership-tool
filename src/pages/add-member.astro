@@ -33,62 +33,77 @@ if (Astro.request.method === 'POST') {
 ---
 
 <Layout title="Add Member">
-  <form method="POST" class="flex w-96 flex-col gap-4 rounded-md p-4 shadow">
-    <InputField
-      label="Name"
-      isRequired
-      type="text"
-      name="name"
-      id="name-field"
-    />
-    <InputField
-      label="Email"
-      isRequired
-      type="email"
-      name="email"
-      id="email-field"
-    />
-    <InputField label="Phone" type="text" name="phone" id="phone-field" />
-    <InputField
-      label="Address One"
-      type="text"
-      name="address1"
-      id="address-one-field"
-    />
-    <InputField
-      label="Address Two"
-      type="text"
-      name="address2"
-      id="address-two-field"
-    />
-    <InputField label="City" type="text" name="city" id="city-field" />
+  <div class="card">
+    <form method="POST" class="card-body">
+      <div class="row">
+        <InputField
+          label="First Name"
+          isRequired
+          type="text"
+          name="firstName"
+          id="first-name-field"
+        />
+        <InputField
+          label="Last Name"
+          isRequired
+          type="text"
+          name="lastName"
+          id="last-name-field"
+        />
+      </div>
+      <div class="row">
+        <InputField
+          label="Email"
+          isRequired
+          type="email"
+          name="email"
+          id="email-field"
+        />
+        <InputField label="Phone" type="text" name="phone" id="phone-field" />
+      </div>
+      <hr />
+      <div class="row">
+        <InputField
+          label="Address One"
+          type="text"
+          name="address1"
+          id="address-one-field"
+        />
+        <InputField
+          label="Address Two"
+          type="text"
+          name="address2"
+          id="address-two-field"
+        />
+      </div>
+      <div class="row">
+        <InputField label="City" type="text" name="city" id="city-field" />
+        <SelectField
+          label="State"
+          name="state"
+          id="state-select"
+          options={['RI', 'MA', 'CT']}
+        />
+        <InputField label="ZIP" type="text" name="zip" id="zip-field" />
+      </div>
+      <hr />
+      <div class="row">
+        <SelectField
+          label="Number of Members"
+          name="memberSize"
+          id="member-size-select"
+          options={[4, 5, 6, 7, 8, 9, 10]}
+        />
 
-    <SelectField
-      label="State"
-      name="state"
-      id="state-select"
-      options={['RI', 'MA', 'CT']}
-    />
+        <SelectField
+          label="Length (Years)"
+          name="lengthInYrs"
+          id="membership-length-select"
+          options={[1, 2, 3, 4]}
+        />
+      </div>
 
-    <InputField label="ZIP" type="text" name="zip" id="zip-field" />
-    <hr />
-    <SelectField
-      label="Number of Members"
-      name="memberSize"
-      id="member-size-select"
-      options={[4, 5, 6, 7, 8, 9, 10]}
-    />
-
-    <SelectField
-      label="Length (Years)"
-      name="lengthInYrs"
-      id="membership-length-select"
-      options={[1, 2, 3, 4]}
-    />
-
-    <button
-      class="rounded-md bg-sky-300 px-5 py-2 text-white hover:bg-sky-200 active:bg-sky-400"
-      type="submit">Submit</button
-    >
-  </form>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
 </Layout>

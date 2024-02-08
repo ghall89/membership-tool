@@ -1,12 +1,12 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
-import alpinejs from '@astrojs/alpinejs';
 
+import alpinejs from '@astrojs/alpinejs';
 import vercel from '@astrojs/vercel/serverless';
+import auth from 'auth-astro';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), alpinejs()],
+  integrations: [alpinejs(), auth()],
   output: 'server',
   adapter: vercel(),
 });

@@ -4,6 +4,7 @@ import { ViewTransitions } from 'astro:transitions';
 type NavItem = {
   label: string;
   href: string;
+  icon: string;
 };
 
 export interface Props {
@@ -18,10 +19,12 @@ const navItems: NavItem[] = [
   {
     label: 'Member List',
     href: '/',
+    icon: 'bi-people-fill',
   },
   {
     label: 'Add Member',
     href: '/add-member',
+    icon: 'bi-plus-lg',
   },
 ];
 ---
@@ -32,24 +35,38 @@ const navItems: NavItem[] = [
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <link
+      href="../../node_modules/bootstrap/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../../node_modules/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap"></script>
     <title>{title}</title>
     <ViewTransitions />
   </head>
   <body>
-    <div class="container mx-auto w-fit">
-      <nav class="mx-auto flex w-fit flex-row gap-4 pt-4">
-        {
-          navItems.map(({ label, href }) => (
-            <a
-              class={`border-b-2 uppercase hover:border-sky-300 ${href === currentPath ? 'border-sky-400' : 'border-slate-400'}`}
-              href={href}
-            >
-              {label}
-            </a>
-          ))
-        }
+    <div class="container">
+      <nav>
+        <ul class="nav nav-tabs my-3">
+          {
+            navItems.map(({ label, href, icon }) => (
+              <li class="nav-item">
+                <a
+                  class={`nav-link ${href === currentPath ? 'active' : null}`}
+                  href={href}
+                >
+                  <i class={`bi ${icon}`} />
+                  {label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
       </nav>
-      <div class="p-8">
+      <div>
         <slot />
       </div>
     </div>

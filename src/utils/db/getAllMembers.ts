@@ -15,13 +15,16 @@ export default async (page: number = 1) => {
     pages: [],
   };
 
-  const limit = 10;
+  const limit = 15;
   const offset = (page - 1) * limit;
 
   try {
     const [{ count }] = await knex('member').count();
 
-    memberships.data = await knex('member').offset(offset).limit(limit);
+    memberships.data = await knex('member')
+      .offset(offset)
+      .limit(limit)
+      .orderBy('membership_number', 'desc');
     memberships.count = Number(count);
     memberships.pages = Array.from(
       { length: memberships.count / limit / 1 + 1 },
